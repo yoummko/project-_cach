@@ -42,6 +42,11 @@ int CacheSet::minimumLRUBlock() {
 			temp += (short)lru[i][j];
 		}
 		if (temp => min) { min = temp; }
+		void CacheSet::updateLRU(int index) {
+    for (int i = 0; i < noofblocks; ++i) {
+        lru[index][i] = 1;
+        lru[i][index] = 0;
+   
 	}
 	return min;
 }
