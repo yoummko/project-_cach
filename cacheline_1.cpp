@@ -6,7 +6,7 @@
 
 class cacheline {
 public:
-	cacheline(int blocksize, int tagbits,int offsetbits) {
+	cacheline(int blocksize, int tagbits,int index,int offsetbits) {
 		
 		data = (unsigned int*)malloc(((blocksize * (sizeof(unsigned int)))));
 		memset(data, 0, ((blocksize * (sizeof(int)))));
