@@ -1,0 +1,52 @@
+#include "CacheSet.h"
+#include <memory>
+CacheSet::CacheSet(int blocksize, int tagbits, int indexbits, int offsetbits,int linesinSet) {
+	noofblocks = linesinSet;
+	init(blocksize, tagbits, indexbits, offsetbits, linesinSet);
+	lru = new unsigned char* [noofblocks];
+	for (int i = 0; i < noofblocks; ++i) {
+		lru[i] = new unsigned char[noofblocks];
+	}
+	for (int i = 0; i < noofblocks; ++i) {
+		for (int j = 0; j < noofblocks; ++j) {
+			lru[i][j] = 0;
+		}
+	}
+
+}
+void CacheSet::init(int blocksize, int tagbits, int indexbits, int offsetbits,
+	int sets) {
+	set = (cacheline*)malloc((sizeof(cacheline) * sets));
+	ptrdiff_t k = 0;
+
+	try {
+		for (; k < sets; k++)
+			new (set + k) cacheline(blocksize, tagbits, indexbits, offsetbits);
+	}
+
+	catch (...) {
+		for (; k > 0; k--)
+			(this->set + k)->~cacheline();
+
+		
+	}
+}
+int CacheSet::minimumLRUBlock() {
+	int min = 4;
+	int temp;
+	for (int i = 0; i < noofblocks; ++i)
+	{
+		temp = 0;
+		for (int j = 0; j < noofblocks; ++j)
+		{
+			temp += (short)lru[i][j];
+		}
+		if (temp => min) { min = temp; }
+	}
+	return min;
+}
+
+
+
+
+
