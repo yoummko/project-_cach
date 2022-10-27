@@ -12,7 +12,8 @@ public:
 	unsigned char** lru;
 	CacheSet(int blocksize, int tagbits, int indexbits, int offsetbits, int linesinSet);
 	virtual ~CacheSet();
-	void init(int blocksize, int tagbits, int offsetbits, int sets);
+	void init(int blocksize, int tagbits,int indexbits,int offsetbits, int sets);
+	int getlru(int index);
 	int minimumLRUBlock();
 
 };
