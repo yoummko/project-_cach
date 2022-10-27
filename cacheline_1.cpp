@@ -18,11 +18,11 @@ public:
 		index[indexbits] = '\0';
 		offset = (char*)malloc((sizeof(char) * offsetbits) + 1);
 		memset(offset, '0', (sizeof(char) * offsetbits) + 1);
-		offset[offsetbits] = '\0';
+		offset[offsetbits] = '0';
 	
 	};
 	
-	unsigned int* data;
+	signed int* data;
 	char* index;
 	char* tag;
 	char* offset;
